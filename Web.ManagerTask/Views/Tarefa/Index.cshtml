@@ -5,73 +5,69 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataCriacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Projeto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioResponsavel)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCriacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Projeto.NomeProjeto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)
-            </td>
-            <td>
-                @if (item.Status == false)
-                    {
-                        <a class="btn btn-primary" asp-action="TodoDone" asp-route-id="@item.Id">Concluir Todo </a>
-                    
-                        }
-                    else
-                    {
-                        <a class="btn btn-primary" asp-action="TodoOpen" asp-route-id="@item.Id">Reabrir Todo </a>
 
-                    }
 
-              @*   <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="vh-100 bg-light">
+    <div class="container py-5 h-100">
+        <div class="row align-items-center justify-content-center h-100">
+            <div class="col-lg-9 col-xl-7">
+                <div class="card rounded-3">
+                    <div class="card-body p-4">
+
+                        <h4 class="text-center my-3 pb-3">To Do App</h4>
+
+                        <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="text" id="form1" class="form-control" />
+                                    <label class="form-label" for="form1">Enter a task here</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-warning">Get tasks</button>
+                            </div>
+                            <div class="col-12">
+                                <a asp-action="Create" class="btn btn-primary">Create New</a>
+
+                            </div>
+                        </form>
+
+                        <table class="table mb-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Todo item</th>
+                                    <th scope="col">Atribuído</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                                        <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)</td>
+                                        <td>
+                                           
+                                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                                <a class="btn btn-success ms-1" asp-action="TodoDone" asp-route-id="@item.Id">Finished</a>
+                                         
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

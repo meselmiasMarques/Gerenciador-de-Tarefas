@@ -51,7 +51,7 @@ namespace Web.ManagerTask.Controllers
         
         public IActionResult Create()
         {
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Nome");
+            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "NomeProjeto");
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
             return View();
         }
