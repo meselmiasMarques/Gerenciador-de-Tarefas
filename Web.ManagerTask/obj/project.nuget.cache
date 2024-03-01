@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bFvarcYkQKJ3ZHDIb6DVLCRkM5NSQAOIAq7hMj1OfI0XLnOK0hFm83DJ1Z7Y6zfcXI76n1Rkw6Ucv9SpT7IEtw==",
+  "dgSpecHash": "3+9WNx9gl0OdH2LsKKlMHdCdQrH1OYzSuhJ0U3NTGawz2fk5g0yY3ZIN76iCT01cXiy/8nF8nXXxon0S3QLecw==",
   "success": true,
-  "projectFilePath": "C:\\DEV\\.NET\\FaculdadeImpacta\\Web.ManagerTask\\Web.ManagerTask\\Web.ManagerTask.csproj",
+  "projectFilePath": "C:\\DEV\\.NET\\FaculdadeImpacta\\GerenciadorTarefas\\Web.ManagerTask\\Web.ManagerTask.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mesel\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\mesel\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

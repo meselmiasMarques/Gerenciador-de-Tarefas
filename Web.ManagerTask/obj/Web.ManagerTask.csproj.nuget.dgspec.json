@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DEV\\.NET\\FaculdadeImpacta\\Web.ManagerTask\\Web.ManagerTask\\Web.ManagerTask.csproj": {}
+    "C:\\DEV\\.NET\\FaculdadeImpacta\\GerenciadorTarefas\\Web.ManagerTask\\Web.ManagerTask.csproj": {}
   },
   "projects": {
-    "C:\\DEV\\.NET\\FaculdadeImpacta\\Web.ManagerTask\\Web.ManagerTask\\Web.ManagerTask.csproj": {
+    "C:\\DEV\\.NET\\FaculdadeImpacta\\GerenciadorTarefas\\Web.ManagerTask\\Web.ManagerTask.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DEV\\.NET\\FaculdadeImpacta\\Web.ManagerTask\\Web.ManagerTask\\Web.ManagerTask.csproj",
+        "projectUniqueName": "C:\\DEV\\.NET\\FaculdadeImpacta\\GerenciadorTarefas\\Web.ManagerTask\\Web.ManagerTask.csproj",
         "projectName": "Web.ManagerTask",
-        "projectPath": "C:\\DEV\\.NET\\FaculdadeImpacta\\Web.ManagerTask\\Web.ManagerTask\\Web.ManagerTask.csproj",
+        "projectPath": "C:\\DEV\\.NET\\FaculdadeImpacta\\GerenciadorTarefas\\Web.ManagerTask\\Web.ManagerTask.csproj",
         "packagesPath": "C:\\Users\\mesel\\.nuget\\packages\\",
-        "outputPath": "C:\\DEV\\.NET\\FaculdadeImpacta\\Web.ManagerTask\\Web.ManagerTask\\obj\\",
+        "outputPath": "C:\\DEV\\.NET\\FaculdadeImpacta\\GerenciadorTarefas\\Web.ManagerTask\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mesel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -34,9 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "default"
         }
       },
       "frameworks": {
