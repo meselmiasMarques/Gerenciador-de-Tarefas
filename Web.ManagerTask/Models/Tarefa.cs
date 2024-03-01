@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyTask.Models;
 
-public partial class Tarefa
+public class Tarefa
 {
     public int Id { get; set; }
 
@@ -13,7 +13,7 @@ public partial class Tarefa
 
     public DateTime? DataCriacao { get; set; } = DateTime.Now;
 
-    public bool Status { get; set; }
+    public bool Status { get; set; } = false;
 
     public int? UsuarioResponsavelId { get; set; }
 

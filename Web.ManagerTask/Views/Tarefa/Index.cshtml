@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MyTask.Models.Tarefa>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCriacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projeto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioResponsavel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCriacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projeto.NomeProjeto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)
+            </td>
+            <td>
+                @if (item.Status == false)
+                    {
+                        <a class="btn btn-primary" asp-action="TodoDone" asp-route-id="@item.Id">Concluir Todo </a>
+                    
+                        }
+                    else
+                    {
+                        <a class="btn btn-primary" asp-action="TodoOpen" asp-route-id="@item.Id">Reabrir Todo </a>
+
+                    }
+
+              @*   <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
