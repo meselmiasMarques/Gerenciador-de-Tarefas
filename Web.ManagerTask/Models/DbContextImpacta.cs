@@ -26,7 +26,7 @@ public partial class DbContextImpacta : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=dbManagerTask;User ID=meselmias;Password=lima1038;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=dbManagerTask;User ID=sa;Password=Password0701!;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
