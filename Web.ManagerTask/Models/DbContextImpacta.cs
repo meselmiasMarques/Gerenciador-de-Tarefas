@@ -30,24 +30,7 @@ public partial class DbContextImpacta : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Comentario>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Comentar__3214EC2754D3EC43");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Conteudo).HasColumnType("text");
-            entity.Property(e => e.DataHoraComentario).HasColumnType("datetime");
-            entity.Property(e => e.TarefaId).HasColumnName("TarefaID");
-            entity.Property(e => e.UsuarioId).HasColumnName("UsuarioID");
-
-            entity.HasOne(d => d.Tarefa).WithMany(p => p.Comentarios)
-                .HasForeignKey(d => d.TarefaId)
-                .HasConstraintName("FK__Comentari__Taref__403A8C7D");
-
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Comentarios)
-                .HasForeignKey(d => d.UsuarioId)
-                .HasConstraintName("FK__Comentari__Usuar__412EB0B6");
-        });
+       
 
         modelBuilder.Entity<HistoricoAtividade>(entity =>
         {
@@ -61,9 +44,9 @@ public partial class DbContextImpacta : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.UsuarioId).HasColumnName("UsuarioID");
 
-            entity.HasOne(d => d.Tarefa).WithMany(p => p.HistoricoAtividades)
-                .HasForeignKey(d => d.TarefaId)
-                .HasConstraintName("FK__Historico__Taref__440B1D61");
+            //entity.HasOne(d => d.Tarefa).WithMany(p => p.HistoricoAtividades)
+            //    .HasForeignKey(d => d.TarefaId)
+            //    .HasConstraintName("FK__Historico__Taref__440B1D61");
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.HistoricoAtividades)
                 .HasForeignKey(d => d.UsuarioId)
@@ -97,7 +80,6 @@ public partial class DbContextImpacta : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.DataCriacao).HasColumnType("datetime");
             entity.Property(e => e.Descricao).HasColumnType("text");
-            entity.Property(e => e.ProjetoId).HasColumnName("ProjetoID");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -106,9 +88,9 @@ public partial class DbContextImpacta : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.UsuarioResponsavelId).HasColumnName("UsuarioResponsavelID");
 
-            entity.HasOne(d => d.Projeto).WithMany(p => p.Tarefas)
-                .HasForeignKey(d => d.ProjetoId)
-                .HasConstraintName("FK__Tarefas__Projeto__3D5E1FD2");
+            //entity.HasOne(d => d.Projeto).WithMany(p => p.Tarefas)
+            //    .HasForeignKey(d => d.ProjetoId)
+            //    .HasConstraintName("FK__Tarefas__Projeto__3D5E1FD2");
 
             entity.HasOne(d => d.UsuarioResponsavel).WithMany(p => p.Tarefas)
                 .HasForeignKey(d => d.UsuarioResponsavelId)

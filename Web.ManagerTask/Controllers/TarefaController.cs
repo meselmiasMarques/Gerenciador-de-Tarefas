@@ -21,11 +21,23 @@ namespace Web.ManagerTask.Controllers
         public async Task<IActionResult> Index()
         {
 
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Nome");
-            ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
+            try
+            {
+                ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Nome");
+                ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
 
-            var dbContextImpacta = _context.Tarefas.Include(t => t.Projeto).Include(t => t.UsuarioResponsavel);
-            return View(await dbContextImpacta.ToListAsync());
+                var tarefas =  _context.Tarefas
+                        .Include(t => t.UsuarioResponsavel);
+                       
+                return View(await tarefas.ToListAsync());
+
+            }
+            catch (Exception)
+            {
+                ViewBag.Erro = "Erro ao Carregar Dados!";
+
+                return View(); 
+            }
         }
 
         
@@ -37,7 +49,6 @@ namespace Web.ManagerTask.Controllers
             }
 
             var tarefa = await _context.Tarefas
-                .Include(t => t.Projeto)
                 .Include(t => t.UsuarioResponsavel)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tarefa == null)
@@ -48,17 +59,16 @@ namespace Web.ManagerTask.Controllers
             return View(tarefa);
         }
 
-        
+
         public IActionResult Create()
         {
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "NomeProjeto");
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
             return View();
         }
 
-  
+
         [HttpPost]
-        public async Task<IActionResult> Create( Tarefa tarefa)
+        public async Task<IActionResult> Create(Tarefa tarefa)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +76,6 @@ namespace Web.ManagerTask.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Id", tarefa.ProjetoId);
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
             return View(tarefa);
         }
@@ -84,7 +93,6 @@ namespace Web.ManagerTask.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Id", tarefa.ProjetoId);
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
             return View(tarefa);
         }
@@ -117,7 +125,6 @@ namespace Web.ManagerTask.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Id", tarefa.ProjetoId);
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
             return View(tarefa);
         }
@@ -155,7 +162,6 @@ namespace Web.ManagerTask.Controllers
             }
 
             var tarefa = await _context.Tarefas
-                .Include(t => t.Projeto)
                 .Include(t => t.UsuarioResponsavel)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tarefa == null)

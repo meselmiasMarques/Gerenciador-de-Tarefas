@@ -17,13 +17,8 @@ public class Tarefa
 
     public int? UsuarioResponsavelId { get; set; }
 
-    public int? ProjetoId { get; set; }
 
-    public virtual ICollection<Comentario> Comentarios { get; set; } = new List<Comentario>();
-
-    public virtual ICollection<HistoricoAtividade> HistoricoAtividades { get; set; } = new List<HistoricoAtividade>();
-
-    public virtual Projeto? Projeto { get; set; }
+   // public virtual ICollection<HistoricoAtividade> HistoricoAtividades { get; set; } = new List<HistoricoAtividade>();
 
     public virtual Usuario? UsuarioResponsavel { get; set; }
 }

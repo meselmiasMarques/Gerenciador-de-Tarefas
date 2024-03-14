@@ -11,9 +11,9 @@ public partial class Projeto
 
     public string? DescricaoProjeto { get; set; }
 
-    public DateTime? DataCriacaoProjeto { get; set; }
+    public DateTime? DataCriacaoProjeto { get; set; } = DateTime.Now;
 
-    public string? Status { get; set; }
+    public bool Status { get; set; } = false;
 
     public int? UsuarioCriadorId { get; set; }
 

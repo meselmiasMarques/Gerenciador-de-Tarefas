@@ -1428,13 +1428,6 @@ C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Humanizer.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Components.QuickGrid.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
@@ -1460,7 +1453,6 @@ C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.Identity.Client.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
@@ -1469,7 +1461,6 @@ C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.JSInterop.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.NET.StringTools.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\mlima\Desktop\DEV\Gerenciador-de-Tarefas\Web.ManagerTask\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.dll

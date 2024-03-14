@@ -6,8 +6,12 @@
 }
 
 <div class="container">
-    <h1>Lista de Usuários</h1>
+    <div class="row">
+        <div class="col-4">
+            <a class="btn btn-primary btn-block" asp-action="Cadastrar">Cadastrar</a>
 
+        </div>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -23,9 +27,8 @@
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
-                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                        <a class="btn btn-secondary btn-block" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
                     </td>
                 </tr>
             }

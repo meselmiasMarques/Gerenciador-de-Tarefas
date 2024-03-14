@@ -26,27 +26,23 @@ namespace Web.ManagerTask.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Conteudo")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DataHoraComentario")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("TarefaId")
-                        .HasColumnType("int")
-                        .HasColumnName("TarefaID");
+                        .HasColumnType("int");
 
                     b.Property<int?>("UsuarioId")
-                        .HasColumnType("int")
-                        .HasColumnName("UsuarioID");
+                        .HasColumnType("int");
 
-                    b.HasKey("Id")
-                        .HasName("PK__Comentar__3214EC2754D3EC43");
+                    b.HasKey("Id");
 
                     b.HasIndex("TarefaId");
 
@@ -110,10 +106,10 @@ namespace Web.ManagerTask.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Status")
+                    b.Property<bool>("Status")
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("UsuarioCriadorId")
                         .HasColumnType("int")
@@ -143,8 +139,7 @@ namespace Web.ManagerTask.Migrations
                         .HasColumnType("text");
 
                     b.Property<int?>("ProjetoId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProjetoID");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasMaxLength(50)
@@ -203,14 +198,12 @@ namespace Web.ManagerTask.Migrations
             modelBuilder.Entity("MyTask.Models.Comentario", b =>
                 {
                     b.HasOne("MyTask.Models.Tarefa", "Tarefa")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("TarefaId")
-                        .HasConstraintName("FK__Comentari__Taref__403A8C7D");
+                        .WithMany()
+                        .HasForeignKey("TarefaId");
 
                     b.HasOne("MyTask.Models.Usuario", "Usuario")
                         .WithMany("Comentarios")
-                        .HasForeignKey("UsuarioId")
-                        .HasConstraintName("FK__Comentari__Usuar__412EB0B6");
+                        .HasForeignKey("UsuarioId");
 
                     b.Navigation("Tarefa");
 
@@ -220,9 +213,8 @@ namespace Web.ManagerTask.Migrations
             modelBuilder.Entity("MyTask.Models.HistoricoAtividade", b =>
                 {
                     b.HasOne("MyTask.Models.Tarefa", "Tarefa")
-                        .WithMany("HistoricoAtividades")
-                        .HasForeignKey("TarefaId")
-                        .HasConstraintName("FK__Historico__Taref__440B1D61");
+                        .WithMany()
+                        .HasForeignKey("TarefaId");
 
                     b.HasOne("MyTask.Models.Usuario", "Usuario")
                         .WithMany("HistoricoAtividades")
@@ -246,17 +238,14 @@ namespace Web.ManagerTask.Migrations
 
             modelBuilder.Entity("MyTask.Models.Tarefa", b =>
                 {
-                    b.HasOne("MyTask.Models.Projeto", "Projeto")
+                    b.HasOne("MyTask.Models.Projeto", null)
                         .WithMany("Tarefas")
-                        .HasForeignKey("ProjetoId")
-                        .HasConstraintName("FK__Tarefas__Projeto__3D5E1FD2");
+                        .HasForeignKey("ProjetoId");
 
                     b.HasOne("MyTask.Models.Usuario", "UsuarioResponsavel")
                         .WithMany("Tarefas")
                         .HasForeignKey("UsuarioResponsavelId")
                         .HasConstraintName("FK__Tarefas__Usuario__3C69FB99");
-
-                    b.Navigation("Projeto");
 
                     b.Navigation("UsuarioResponsavel");
                 });
@@ -264,13 +253,6 @@ namespace Web.ManagerTask.Migrations
             modelBuilder.Entity("MyTask.Models.Projeto", b =>
                 {
                     b.Navigation("Tarefas");
-                });
-
-            modelBuilder.Entity("MyTask.Models.Tarefa", b =>
-                {
-                    b.Navigation("Comentarios");
-
-                    b.Navigation("HistoricoAtividades");
                 });
 
             modelBuilder.Entity("MyTask.Models.Usuario", b =>
