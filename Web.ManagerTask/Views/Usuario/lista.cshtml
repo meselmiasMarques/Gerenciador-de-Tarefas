@@ -14,6 +14,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Ações</th>
@@ -23,61 +24,60 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
-                        <button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#editModal-@item.Id">
-                            Editar
-                        </button>
-                        <!-- Modal de Edição -->
-                        <div class="modal fade" id="editModal-@item.Id" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-@item.Id" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel-@item.Id">Editar Usuário</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Formulário de Edição Aqui -->
-                                        <!-- Você pode adicionar os campos necessários para editar o usuário -->
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                        <button type="button" class="btn btn-primary">Salvar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Botão de Excluir -->
-                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#deleteModal-@item.Id">
-                            Excluir
-                        </button>
-                        <!-- Modal de Exclusão -->
-                        <div class="modal fade" id="deleteModal-@item.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-@item.Id" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel-@item.Id">Excluir Usuário</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Tem certeza de que deseja excluir o usuário: @item.Nome ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Confirmar Excluir</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="javascript:" usuario-id="@item.Id" class="btn btn-primary btn-editar-usuario">Editar</a>
+
+                        <a href="javascript:" usuario-id="@item.Id" class="btn btn-secondary btn-excluir-usuario">Remover</a>
+                      
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <div id="modalEditaUsuario" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edição </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                     
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <div id="editaUsuarios">
+
+                   </div>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+
+    <div id="modalExcluirUsuario" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhes </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h5>Desejar mesmo excluir esse usuário ?</h5>
+                    </div>
+                    <div>
+                        <a href="javascript:" class="btn btn-danger">Remover</a>
+
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
 </div>

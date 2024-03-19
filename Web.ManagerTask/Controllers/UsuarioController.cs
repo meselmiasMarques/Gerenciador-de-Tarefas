@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyTask.Models;
 
@@ -33,6 +34,52 @@ namespace Web.ManagerTask.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("lista");
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+
+            return PartialView("_Editar", usuario);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(int id, Usuario usuario)
+        {
+            if (id != usuario.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(usuario);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    ViewBag.Erro = "Erro ao Alterar Usuário";
+                }
+                return RedirectToAction("lista");
+            }
+            return View(usuario); ;
+        }
+
+
+        [HttpPost, ActionName("Excluir")]
+        public async Task<IActionResult> Excluir(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario != null)
+            {
+                _context.Usuarios.Remove(usuario);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("lista");
         }
 
     }
