@@ -67,7 +67,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
 
-                            <a type="button" class="btn btn-primary" asp-route-id="@item.Id" asp-action="Editar" asp-controller="Tarefa">Abrir</a>
+                            <a type="button" class="btn btn-primary btn-detalhar-tarefa" asp-route-id="@item.Id">Abrir</a>
 
                             @if (item.Status == 1)
                             {
@@ -84,3 +84,21 @@
             }
         </tbody>
     </table>
+
+
+    <div id="modalDetalharTarefa" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhamentos </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                   @*  <div id="editaUsuarios">
+                    </div> *@
+                </div>
+
+            </div>
+        </div>
+    </div>

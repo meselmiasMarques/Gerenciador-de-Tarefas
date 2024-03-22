@@ -1,9 +1,28 @@
 ﻿ @model IEnumerable<MyTask.Models.Projeto>
 
+<div class="row">
+    @if (ViewBag.Sucesso != null && ViewBag.Erro == null)
+    {
+        <div class="alert alert-success">
+            <div>
+                @ViewBag.Sucesso
+            </div>
+        </div>
+    }
+    @if(ViewBag.Erro != null && ViewBag.Sucesso == null)
+    {
+        <div class="alert alert-danger">
+            <div>
+                @ViewBag.Erro
+            </div>
+        </div>
+    }
+</div>
+
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Projeto" asp-action="Cadastrar">Cadastrar</a>
+        <a class="btn btn-primary btn-block btn-lg btn-excluir-projeto" role="button" asp-controller="Projeto" asp-action="Cadastrar">Cadastrar</a>
     </div>
     <br />
     <h1 class="display-4">Listagem de Projetos</h1>
@@ -18,9 +37,9 @@
                     Descrição
                 </th>
                 <th>
-                   Data da Criação
+                    Data da Criação
                 </th>
-               
+
                 <th></th>
             </tr>
         </thead>
@@ -40,12 +59,8 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                             <a class="btn btn-sm btn-secondary" asp-route-id="@item.Id" asp-action="listarTarefasPorProjeto">Tarefas</a>
-                                             
-
-
-                            <a type="button" class="btn btn-primary btn-editar-usuario" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
-
-                            <a href="javascript:" usuario-id="@item.Id" type="button" class="btn btn-danger btn-excluir-usuario">Excluir</a>
+                            <a type="button" class="btn btn-primary" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
+                            <a href="javascript:" projeto-id="@item.Id" type="button" class="btn btn-danger btn-excluir-projeto">Excluir</a>
                         </div>
                     </td>
                 </tr>
@@ -54,4 +69,28 @@
     </table>
 
 
+    <div id="modalExcluirProjeto" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atenção ! </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h6>Desejar mesmo excluir esse projeto ? todas Tarefas Associadas serão finalizadas !</h6>
+                    </div>
+                    <br />
 
+                    <div class="d-grid gap-2">
+                        <a href="javascript:" id="ProjetoConfirmaExclusao" class="btn btn-danger">Remover</a>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

@@ -14,37 +14,6 @@
 
     });
 
-    //$('.btn-cadastrar-usuario').click(function () {
-
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: '/Usuario/Cadastrar/',
-    //        success: function (result) {
-    //            $('#modalCadastraUsuario').modal('show');
-
-    //            $("#cadastroUsuarios").html(result);
-    //        }
-    //    });
-
-    //    $('#ConfirmaExclusao').click(function () {
-
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Usuario/Excluir/' + usuarioId,
-    //            success: function () {
-    //                location.reload();
-
-    //                $('#modalExcluirUsuario').modal('hide');
-
-    //            }
-
-
-    //        });
-    //    });
-
-    //});
-
-
     $('.btn-excluir-usuario').click(function () {
         var usuarioId = $(this).attr('usuario-id');
 
@@ -63,4 +32,32 @@
 
         });
     });
+
+
+    $('.btn-excluir-projeto').click(function () {
+        var projetoId = $(this).attr('projeto-id');
+        console.log(projetoId)
+
+        $('#modalExcluirProjeto').modal('show');
+        $('#ProjetoConfirmaExclusao').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Projeto/Excluir/' + projetoId,
+                success: function () {
+                    location.reload();
+
+                    $('#modalExcluirProjeto').modal('hide');
+
+                }
+            });
+
+        });
+    });
+
+    $('.btn-detalhar-tarefa').click(() => {
+        var tarefaId = $(this).attr('tarefa-id');
+
+        $('#modalDetalharTarefa').modal('show');
+
+    })
 })

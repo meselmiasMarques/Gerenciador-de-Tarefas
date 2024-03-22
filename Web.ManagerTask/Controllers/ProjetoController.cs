@@ -45,15 +45,23 @@ namespace Web.ManagerTask.Controllers
         }
 
         [HttpGet]
-        public IActionResult Editar(int id)
+        public async Task<IActionResult> Editar(int id)
         {
-            return View();
+            var projeto = await _context.Projetos.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (projeto == null)
+                ViewBag.Erro = "Erro ao Recuperar Projeto";
+           
+
+            return View(projeto);
         }
 
         [HttpPost]
-        public IActionResult Editar(Projeto projeto)
+        public async Task<IActionResult> Editar(Projeto model)
         {
-            return View();
+            _context.Projetos.Update(model);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Lista");
         }
 
         [HttpPost]
@@ -75,6 +83,7 @@ namespace Web.ManagerTask.Controllers
             }
             _context.Projetos.Remove(projeto);
             _context.SaveChanges();
+            ViewBag.Sucesso = "Projeto Excluído com sucesso !";
 
             return RedirectToAction("Lista");
         }
@@ -95,7 +104,13 @@ namespace Web.ManagerTask.Controllers
                     .Where(p => p.ProjetoId == id)
                     .ToListAsync();
 
-                ViewBag.ProjetoId = tarefas.FirstOrDefault(x => x.ProjetoId == id).ProjetoId;
+                if (tarefas.Count != 0)
+                {
+                    ViewBag.ProjetoId = tarefas.FirstOrDefault(x => x.ProjetoId == id).ProjetoId;
+                }
+                ViewBag.ProjetoId = id;
+
+
 
                 return View(tarefas);
             }

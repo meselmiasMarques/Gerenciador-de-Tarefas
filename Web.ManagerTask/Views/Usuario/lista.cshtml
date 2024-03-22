@@ -8,7 +8,7 @@
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a  class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Usuario" asp-action="Cadastrar">Cadastrar</a>
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Usuario" asp-action="Cadastrar">Cadastrar</a>
     </div>
     <br />
     <h1 class="display-4">Listagem de Usuários</h1>
@@ -31,12 +31,8 @@
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
-                       @*  <a href="javascript:" usuario-id="@item.Id" class="btn btn-primary btn-editar-usuario">Editar</a> *@
-
-                       @*  <a href="javascript:" usuario-id="@item.Id" class="btn btn-secondary btn-excluir-usuario">Remover</a> *@
-
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                            <a type="button" class="btn btn-primary btn-editar-usuario" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
+                            <a type="button" class="btn btn-primary" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
 
                             <a href="javascript:" usuario-id="@item.Id" type="button" class="btn btn-danger btn-excluir-usuario">Excluir</a>
                         </div>
@@ -52,36 +48,18 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Edição </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                     
                     </button>
                 </div>
                 <div class="modal-body">
-                   <div id="editaUsuarios">
-
-                   </div>
+                    <div id="editaUsuarios">
+                    </div>
                 </div>
-             
+
             </div>
         </div>
     </div>
 
- @*    <div id="modalCadastraUsuario" class="modal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Cadastro de Usuários </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="cadastroUsuarios">
-                    </div>
-                    
-                </div>
-
-            </div>
-        </div>
-    </div> *@
+  
 
     <div id="modalExcluirUsuario" class="modal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -104,10 +82,10 @@
                         </button>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
 
-  
+
 </div>
