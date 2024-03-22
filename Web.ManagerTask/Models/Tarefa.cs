@@ -13,9 +13,11 @@ public class Tarefa
 
     public DateTime? DataCriacao { get; set; } = DateTime.Now;
 
-    public bool Status { get; set; } = false;
+    public int Status { get; set; } = 1; //SE 1 ENTÃO ESTÁ EM ABERTO SE 0 FECHADO
 
     public int? UsuarioResponsavelId { get; set; }
+
+    public int ProjetoId { get; set; }
 
 
    // public virtual ICollection<HistoricoAtividade> HistoricoAtividades { get; set; } = new List<HistoricoAtividade>();

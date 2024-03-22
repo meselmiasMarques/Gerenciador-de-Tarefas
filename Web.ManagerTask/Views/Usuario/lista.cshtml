@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-4">
-            <a class="btn btn-primary btn-block" asp-action="Cadastrar">Cadastrar</a>
-        </div>
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a  class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Usuario" asp-action="Cadastrar">Cadastrar</a>
     </div>
-    <table class="table table-striped table-hover">
+    <br />
+    <h1 class="display-4">Listagem de Usuários</h1>
+
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -29,10 +31,15 @@
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
-                        <a href="javascript:" usuario-id="@item.Id" class="btn btn-primary btn-editar-usuario">Editar</a>
+                       @*  <a href="javascript:" usuario-id="@item.Id" class="btn btn-primary btn-editar-usuario">Editar</a> *@
 
-                        <a href="javascript:" usuario-id="@item.Id" class="btn btn-secondary btn-excluir-usuario">Remover</a>
-                      
+                       @*  <a href="javascript:" usuario-id="@item.Id" class="btn btn-secondary btn-excluir-usuario">Remover</a> *@
+
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <a type="button" class="btn btn-primary btn-editar-usuario" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
+
+                            <a href="javascript:" usuario-id="@item.Id" type="button" class="btn btn-danger btn-excluir-usuario">Excluir</a>
+                        </div>
                     </td>
                 </tr>
             }
@@ -58,21 +65,43 @@
         </div>
     </div>
 
+ @*    <div id="modalCadastraUsuario" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro de Usuários </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="cadastroUsuarios">
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div> *@
+
     <div id="modalExcluirUsuario" class="modal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Detalhes </h5>
+                    <h5 class="modal-title">Atenção </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                     <div>
-                        <h5>Desejar mesmo excluir esse usuário ?</h5>
+                        <h5 class="display-6">Desejar mesmo excluir esse usuário ?</h5>
                     </div>
-                    <div>
-                        <a href="javascript:" class="btn btn-danger">Remover</a>
+                    <br />
 
+                    <div class="d-grid gap-2">
+                        <a href="javascript:" id="ConfirmaExclusao" class="btn btn-danger">Remover</a>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
+                            Cancelar
+                        </button>
                     </div>
                 </div>
                
@@ -80,4 +109,5 @@
         </div>
     </div>
 
+  
 </div>

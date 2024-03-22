@@ -60,9 +60,11 @@ namespace Web.ManagerTask.Controllers
         }
 
 
-        public IActionResult Create()
+        public IActionResult Create(int projetoId)
         {
+            ViewData["ProjetoId"] = projetoId;
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
+            
             return View();
         }
 
@@ -77,10 +79,11 @@ namespace Web.ManagerTask.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
-            return View(tarefa);
+            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
+
         }
 
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -129,29 +132,30 @@ namespace Web.ManagerTask.Controllers
             return View(tarefa);
         }
 
-        public IActionResult TodoDone(int id) {
+        public IActionResult FinalizarTarefa(int id) {
     
             var tarefa = _context.Tarefas.FirstOrDefault(x => x.Id == id);
-            tarefa.Status = true;
+            tarefa.Status = 0; //FLAG DE FINALIZAÇÃO
 
             _context.Tarefas.Update(tarefa);
             _context.SaveChanges();
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
         }
 
-        public IActionResult Todoopen(int id)
+        public IActionResult ReabrirTarefa(int id)
         {
 
             var tarefa = _context.Tarefas.FirstOrDefault(x => x.Id == id);
-                tarefa.Status = false;
+                tarefa.Status = 1; //FLAG DE ABERTURA
 
             _context.Tarefas.Update(tarefa);
             _context.SaveChanges();
 
+          
 
-            return RedirectToAction("Index");
+            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId});
         }
 
         public async Task<IActionResult> Delete(int? id)

@@ -1,48 +1,49 @@
 ﻿@model MyTask.Models.Tarefa
+<div class="text-center">
+    <h1 class="display-4">Cadastrar Tarefas</h1>
+</div>
 
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h1>Create</h1>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" class="form-control" required maxlength="100"/>
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descricao" class="control-label"></label>
+        <input asp-for="Descricao" class="form-control" maxlength="200" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
 
-<h4>Tarefa</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-           
-           
-           
-            <div class="form-group">
-                <label asp-for="UsuarioResponsavelId" class="control-label"></label>
-                <select asp-for="UsuarioResponsavelId" class ="form-control" asp-items="ViewBag.UsuarioResponsavelId"></select>
-            </div>
+    <div class="form-group">
+        <label class="control-label">Responsável</label>
+        <select asp-for="UsuarioResponsavelId" class="form-control" asp-items="ViewBag.UsuarioResponsavelId"></select>
+    </div>
+
+      <div class="form-group">        
+       @*  <input disabled asp-for="ProjetoId"  value="@ViewBag.ProjetoId" class="form-control" maxlength="200" /> *@
+        <input type="hidden" asp-for="ProjetoId" value="@ViewBag.ProjetoId" />
 
        
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    </div> 
+ 
+    <br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="form-group d-grid gap-2">
+        <input type="submit" value="Salvar" class="btn btn-primary btn-block" />
+        <a asp-action="lista" class="btn btn-secondary btn-block">Voltar</a>
+
+    </div>
+</form>
+
+
+
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

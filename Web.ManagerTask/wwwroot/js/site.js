@@ -14,12 +14,42 @@
 
     });
 
+    //$('.btn-cadastrar-usuario').click(function () {
+
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: '/Usuario/Cadastrar/',
+    //        success: function (result) {
+    //            $('#modalCadastraUsuario').modal('show');
+
+    //            $("#cadastroUsuarios").html(result);
+    //        }
+    //    });
+
+    //    $('#ConfirmaExclusao').click(function () {
+
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Usuario/Excluir/' + usuarioId,
+    //            success: function () {
+    //                location.reload();
+
+    //                $('#modalExcluirUsuario').modal('hide');
+
+    //            }
+
+
+    //        });
+    //    });
+
+    //});
+
 
     $('.btn-excluir-usuario').click(function () {
         var usuarioId = $(this).attr('usuario-id');
 
         $('#modalExcluirUsuario').modal('show');
-        $('#modalExcluirUsuario').click(function () {
+        $('#ConfirmaExclusao').click(function () {
             $.ajax({
                 type: 'POST',
                 url: '/Usuario/Excluir/' + usuarioId,
@@ -27,9 +57,7 @@
                     location.reload();
 
                     $('#modalExcluirUsuario').modal('hide');
-                                
 
-                    
                 }
             });
 

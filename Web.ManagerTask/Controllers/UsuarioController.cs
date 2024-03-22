@@ -14,12 +14,15 @@ namespace Web.ManagerTask.Controllers
             _context = context;
         }
 
+       
         public async Task<IActionResult> lista()
             => View(await _context.Usuarios.ToListAsync());
-        
+
+        [HttpGet]
         public IActionResult Cadastrar()
         {
             return View();
+
         }
 
         [HttpPost]
@@ -28,7 +31,7 @@ namespace Web.ManagerTask.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Erro = "Erro ao cadastrar usuário";
-                return View(usuario);
+                return RedirectToAction("lista");
             }
             _context.Add(usuario);
             await _context.SaveChangesAsync();
@@ -36,12 +39,41 @@ namespace Web.ManagerTask.Controllers
 
         }
 
+        //[HttpGet]
+        //public IActionResult Cadastrar()
+        //{
+        //    return PartialView("_Cadastrar");
+
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Cadastrar(Usuario usuario)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.Erro = "Erro ao cadastrar usuário";
+        //       return RedirectToAction("lista");
+        //    }
+        //    _context.Add(usuario);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction("lista");
+
+        //}
+
+        //[HttpGet]
+        //public async Task<IActionResult> Editar(int id)
+        //{
+        //    var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+
+        //    return PartialView("_Editar", usuario);
+        //}
+
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
 
-            return PartialView("_Editar", usuario);
+            return View(usuario);
         }
 
         [HttpPost]

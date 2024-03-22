@@ -1,0 +1,57 @@
+﻿ @model IEnumerable<MyTask.Models.Projeto>
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Projeto" asp-action="Cadastrar">Cadastrar</a>
+    </div>
+    <br />
+    <h1 class="display-4">Listagem de Projetos</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Projeto
+                </th>
+                <th>
+                    Descrição
+                </th>
+                <th>
+                   Data da Criação
+                </th>
+               
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeProjeto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescricaoProjeto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataCriacaoProjeto)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <a class="btn btn-sm btn-secondary" asp-route-id="@item.Id" asp-action="listarTarefasPorProjeto">Tarefas</a>
+                                             
+
+
+                            <a type="button" class="btn btn-primary btn-editar-usuario" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
+
+                            <a href="javascript:" usuario-id="@item.Id" type="button" class="btn btn-danger btn-excluir-usuario">Excluir</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+

@@ -5,56 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="text-center">
 
-
-
-<section class="vh-100 bg-light">
-    <div class="container py-5 h-100">
-        <div class="row align-items-center justify-content-center h-100">
-            <div class="col-lg-9 col-xl-7">
-                <div class="card rounded-3">
-                    <div class="card-body p-4">
-
-
-                        <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
-                                         
-                            <div class="col-12">
-                                <a asp-action="Create" class="btn btn-primary">Nova Tarefa</a>
-
-                            </div>
-                        </form>
-
-                        <table class="table mb-4">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Todo item</th>
-                                    <th scope="col">Atribuído</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
-                                        <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
-                                        <td></td>
-@*                                         <td>@Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)</td>
- *@                                        <td>
-                                           
-                                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-                                                <a class="btn btn-success ms-1" asp-action="TodoDone" asp-route-id="@item.Id">Finalizar</a>
-                                         
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Tarefa" asp-action="Create">Cadastrar</a>
     </div>
-</section>
+    <br />
+    <h1 class="display-4">Listagem de Tarefas</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Código da Tarefa</th>
+                <th scope="col">Título</th>
+                <th scope="col">Responsável</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)</td>
+                    <td>
+
+                     
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+                            <a type="button" class="btn btn-primary" asp-route-id="@item.Id" asp-action="Editar">Abrir</a>
+
+                            @if(item.Status == 1)
+                            {
+                                <a asp-action="FinalizarTarefa" asp-route-id="@item.Id" type="button" class="btn btn-success">Finalizar</a>
+                            }
+                            else{
+                                <a asp-action="ReabrirTarefa" asp-route-id="@item.Id" type="button" class="btn btn-warning">Reabrir</a>
+                            }
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

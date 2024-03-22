@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MyTask.Models.Tarefa>
+
+
+
+
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-route-projetoId="@ViewBag.ProjetoId" asp-controller="Tarefa" asp-action="Create">Cadastrar</a>
+    </div>
+    <br />
+    <h1 class="display-4">Listagem de Tarefas</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataCriacao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioResponsavel.Nome)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataCriacao)
+                    </td>
+                    <td>
+                        @if (item.Status == 1)
+                        {
+                            <label>Pendente</label>
+                        }
+                        else
+                        {
+                            <label>Concluído</label>
+
+
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)
+
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+                            <a type="button" class="btn btn-primary" asp-route-id="@item.Id" asp-action="Editar" asp-controller="Tarefa">Abrir</a>
+
+                            @if (item.Status == 1)
+                            {
+                                <a asp-action="FinalizarTarefa" asp-controller="Tarefa" asp-route-id="@item.Id" type="button" class="btn btn-success">Finalizar</a>
+                            }
+                            else
+                            {
+                                <a asp-action="ReabrirTarefa" asp-controller="Tarefa" asp-route-id="@item.Id" type="button" class="btn btn-warning">Reabrir</a>
+                            }
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
