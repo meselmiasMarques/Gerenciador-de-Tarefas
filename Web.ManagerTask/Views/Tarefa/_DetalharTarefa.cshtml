@@ -1,0 +1,29 @@
+﻿@model MyTask.Models.Tarefa
+
+<div class="card">
+    <div class="card-header">
+        Detalhes da Tarefa
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="titulo" class="text-left">Título:</label>            
+            <input type="text" id="titulo" class="form-control" value="@Model.Titulo" readonly>
+        </div>
+        <div class="form-group">
+            <label for="descricao" class="text-left">Descrição:</label>
+            <textarea id="descricao" class="form-control" rows="4" readonly>@Model.Descricao</textarea>
+        </div>
+        <div class="form-group">
+            <label for="dataCriacao" class="text-left">Data de Criação:</label>
+            <input type="text" id="dataCriacao" class="form-control" value="@Model.DataCriacao?.ToString("dd/MM/yyyy HH:mm")" readonly>
+        </div>
+        <div class="form-group">
+            <label for="status" class="text-left">Status:</label>
+            <input type="text" id="status" class="form-control" value="@(Model.Status == 1 ? "Aberto" : "Fechado")" readonly>
+        </div>
+        <div class="form-group">
+            <label for="responsavel" class="text-left">Responsável:</label>
+            <input type="text" id="responsavel" class="form-control" value="@Model.UsuarioResponsavel.Nome" readonly>
+        </div>
+    </div>
+</div>

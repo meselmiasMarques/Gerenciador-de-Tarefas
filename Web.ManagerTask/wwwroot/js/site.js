@@ -54,10 +54,20 @@
         });
     });
 
-    $('.btn-detalhar-tarefa').click(() => {
+    $('.btn-detalhar-tarefa').click(function () {
         var tarefaId = $(this).attr('tarefa-id');
 
         $('#modalDetalharTarefa').modal('show');
+      
+        $.ajax({
+            type: 'GET',
+            url: '/Tarefa/Detalhar/' + tarefaId,
+            success: function (result) {
+                $("#detalheTarefas").html(result);
+                
+            }
+        });
+
 
     })
 })

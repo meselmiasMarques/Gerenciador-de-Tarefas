@@ -41,7 +41,7 @@ namespace Web.ManagerTask.Controllers
         }
 
         
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detalhar(int? id)
         {
             if (id == null)
             {
@@ -56,7 +56,7 @@ namespace Web.ManagerTask.Controllers
                 return NotFound();
             }
 
-            return View(tarefa);
+            return PartialView("_DetalharTarefa", tarefa);
         }
 
 
@@ -76,10 +76,11 @@ namespace Web.ManagerTask.Controllers
             {
                 _context.Add(tarefa);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
+
             }
             ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
-            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
+            return View(tarefa);
 
         }
 

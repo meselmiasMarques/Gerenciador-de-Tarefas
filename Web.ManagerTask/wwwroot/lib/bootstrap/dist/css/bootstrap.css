@@ -3023,15 +3023,15 @@ textarea.form-control-lg {
 }
 
 .btn-success {
-  color: #fff;
-  background-color: #198754;
-  border-color: #198754;
+    color: #fff;
+    background-color: #24adc3;
+    border-color: #24adc3;
 }
-.btn-success:hover {
-  color: #fff;
-  background-color: #157347;
-  border-color: #146c43;
-}
+    .btn-success:hover {
+        color: #fff;
+        background-color: #24adc3;
+        border-color: #24adc3;
+    }
 .btn-check:focus + .btn-success, .btn-success:focus {
   color: #fff;
   background-color: #157347;

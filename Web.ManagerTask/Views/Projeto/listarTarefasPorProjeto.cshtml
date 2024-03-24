@@ -1,104 +1,151 @@
 ﻿@model IEnumerable<MyTask.Models.Tarefa>
 
+@{
+    foreach(var item in Model)
+    {
+        ViewBag.ProjetoId = item.ProjetoId;
+    }
 
+}
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Tarefas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .task-table {
+            margin-top: 20px;
+        }
 
+            .task-table th {
+                text-align: center;
+            }
 
-<div class="text-center">
+        .btn-group {
+            display: flex;
+            justify-content: center;
+        }
 
+     
+
+        .custom-tooltip .tooltip-inner {
+            background-color: #007bff; /* Cor de fundo */
+            color: #fff; /* Cor do texto */
+            border-radius: 4px; /* Borda arredondada */
+            padding: 8px 12px; /* Espaçamento interno */
+            font-size: 14px; /* Tamanho da fonte */
+        }
+    </style>
+</head>
+<body>
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary btn-block btn-lg" role="button" asp-route-projetoId="@ViewBag.ProjetoId" asp-controller="Tarefa" asp-action="Create">Cadastrar</a>
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-route-projetoId="@ViewBag.ProjetoId" asp-controller="Tarefa" asp-action="Create">
+            <i class="fas fa-plus-circle"></i> Cadastrar
+        </a>
     </div>
     <br />
-    <h1 class="display-4">Listagem de Tarefas</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Titulo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descricao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataCriacao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UsuarioResponsavel.Nome)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titulo)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descricao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataCriacao)
-                    </td>
-                    <td>
-                        @if (item.Status == 1)
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">A Fazer</h2>
+                <table class="table table-bordered task-table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Tarefa</th>
+                        
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(x => x.Status == 1))
                         {
-                            <label>Pendente</label>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                       
+                                <td>
+                                    
+
+                                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                        <a tarefa-id="@item.Id" class="btn btn-primary btn-sm btn-detalhar-tarefa"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Detalhar tarefa">
+                                            <i class="fas fa-eye"></i> 
+                                        </a>
+                                        <a  asp-action="FinalizarTarefa" asp-controller="Tarefa" asp-route-id="@item.Id" 
+                                            class="btn btn-success btn-sm"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Finalizar Tarefa">
+                                            <i class="fas fa-check-circle"></i> 
+                                        </a>
+                                   
+
+                                        <button data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir" 
+                                            
+                                            class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> </button> 
+
+                                    </div>
+                                </td>
+                            </tr>
                         }
-                        else
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Finalizado</h2>
+                <table class="table table-bordered task-table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Tarefa</th>
+                    
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(x => x.Status == 0))
                         {
-                            <label>Concluído</label>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                  
+                                <td>
+                                    <div class="btn-group" role="group"> 
+                                        <a tarefa-id="@item.Id" class="btn btn-primary btn-sm btn-detalhar-tarefa"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Detalhar Tarefa"><i class="fas fa-eye"></i></a>
 
+                                        <a asp-action="ReabrirTarefa" asp-controller="Tarefa" asp-route-id="@item.Id" class="btn btn-success btn-sm"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Reabrir Tarefa">
+                                            <i class="fas fa-redo"></i> 
+                                        </a>
+                                        <button class="btn btn-danger btn-sm"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
 
+                                    </div>
+                                </td>
+                            </tr>
                         }
-
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UsuarioResponsavel.Nome)
-
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-
-                            <a type="button" class="btn btn-primary btn-detalhar-tarefa" asp-route-id="@item.Id">Abrir</a>
-
-                            @if (item.Status == 1)
-                            {
-                                <a asp-action="FinalizarTarefa" asp-controller="Tarefa" asp-route-id="@item.Id" type="button" class="btn btn-success">Finalizar</a>
-                            }
-                            else
-                            {
-                                <a asp-action="ReabrirTarefa" asp-controller="Tarefa" asp-route-id="@item.Id" type="button" class="btn btn-warning">Reabrir</a>
-                            }
-
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <div id="modalDetalharTarefa" class="modal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Detalhamentos </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                   @*  <div id="editaUsuarios">
-                    </div> *@
+                    <div id="detalheTarefas"></div>
                 </div>
-
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
