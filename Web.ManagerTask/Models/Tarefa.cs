@@ -19,6 +19,8 @@ public class Tarefa
 
     public int ProjetoId { get; set; }
 
+    public int lActive { get; set; } = 1; //Flag de ativação / inativação
+
 
    // public virtual ICollection<HistoricoAtividade> HistoricoAtividades { get; set; } = new List<HistoricoAtividade>();
 

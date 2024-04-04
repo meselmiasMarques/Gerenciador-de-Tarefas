@@ -18,7 +18,8 @@
         var usuarioId = $(this).attr('usuario-id');
 
         $('#modalExcluirUsuario').modal('show');
-        $('#ConfirmaExclusao').click(function () {
+        $('.btn-confirma-exclusao').click(function () {
+         
             $.ajax({
                 type: 'POST',
                 url: '/Usuario/Excluir/' + usuarioId,
@@ -67,7 +68,34 @@
                 
             }
         });
-
-
     })
+
+
+    $('.btn-excluir-tarefa').click(function () {
+        var tarefaId = $(this).attr('tarefa-id');
+       
+
+        $('#modalExcluirTarefa').modal('show');
+        $('.btn-confirmar-excluir-tarefa').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Tarefa/Excluir/' + tarefaId,
+                success: function () {
+                    location.reload();
+
+                    $('#modalExcluirTarefa').modal('hide');
+
+                }
+            });
+
+        });
+    });
+
+
+    // Função para ocultar o alerta após 5 segundos
+    setTimeout(function () {
+        $('#alertaSuccesso').fadeOut('slow');
+        $('#alertaErro').fadeOut('slow');
+    }, 3000); // 5000 milissegundos = 5 segundos
+
 })

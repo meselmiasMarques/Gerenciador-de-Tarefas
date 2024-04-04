@@ -1,34 +1,40 @@
 ﻿ @model IEnumerable<MyTask.Models.Projeto>
 
 <div class="row">
-    @if (ViewBag.Sucesso != null && ViewBag.Erro == null)
-    {
-        <div class="alert alert-success">
-            <div>
-                @ViewBag.Sucesso
+    <div class="col-9"></div>
+   <div class="col-3">
+        @if (ViewBag.Sucesso != null && ViewBag.Erro == null)
+        {
+            <div id="alertaSuccesso" class="alert alert-success">
+                <div>
+                    @ViewBag.Sucesso
+                </div>
             </div>
-        </div>
-    }
-    @if(ViewBag.Erro != null && ViewBag.Sucesso == null)
-    {
-        <div class="alert alert-danger">
-            <div>
-                @ViewBag.Erro
+        }
+        @if (ViewBag.Erro != null && ViewBag.Sucesso == null)
+        {
+            <div id="alertaErro" class="alert alert-danger">
+                <div>
+                    @ViewBag.Erro
+                </div>
             </div>
-        </div>
-    }
+        }
+   </div>
 </div>
+
 
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary btn-block btn-lg btn-excluir-projeto" role="button" asp-controller="Projeto" asp-action="Cadastrar">Cadastrar</a>
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Projeto" asp-action="Cadastrar">Cadastrar</a>
     </div>
     <br />
     <h1 class="display-4">Listagem de Projetos</h1>
     <br />
-    <table class="table">
-        <thead>
+   
+    <table class="table table-bordered table-sm">
+        <thead class="thead-dark">
+
             <tr>
                 <th>
                     Projeto
@@ -94,3 +100,5 @@
             </div>
         </div>
     </div>
+
+

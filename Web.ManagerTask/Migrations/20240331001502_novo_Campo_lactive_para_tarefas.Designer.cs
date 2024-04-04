@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyTask.Models;
 
@@ -11,9 +12,11 @@ using MyTask.Models;
 namespace Web.ManagerTask.Migrations
 {
     [DbContext(typeof(DbContextImpacta))]
-    partial class DbContextImpactaModelSnapshot : ModelSnapshot
+    [Migration("20240331001502_novo_Campo_lactive_para_tarefas")]
+    partial class novo_Campo_lactive_para_tarefas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

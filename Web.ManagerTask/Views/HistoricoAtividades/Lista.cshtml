@@ -1,0 +1,17 @@
+﻿ @model IEnumerable<MyTask.Models.HistoricoAtividade>
+
+<table>
+    <tr>
+    <thead>
+        <tr>Tarefa</tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.TipoAtividade)</td>
+            </tr>
+            }
+    </tbody>
+    </tr>
+</table>

@@ -39,9 +39,10 @@ namespace Web.ManagerTask.Controllers
             }
             await _context.Projetos.AddAsync(projeto);
             await _context.SaveChangesAsync();
+            
+            ViewBag.Sucesso = "Projeto cadastrado com sucesso!";
 
-
-            return RedirectToAction("Lista");
+            return View("Lista", await _context.Projetos.ToListAsync());
         }
 
         [HttpGet]
@@ -100,7 +101,7 @@ namespace Web.ManagerTask.Controllers
 
             try
             {
-                var tarefas = await _context.Tarefas
+                var tarefas = await _context.Tarefas.Where(x => x.lActive == 1)
                     .Where(p => p.ProjetoId == id)
                     .ToListAsync();
 

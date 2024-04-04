@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyTask.Models;
 
 namespace Web.ManagerTask.Controllers
@@ -16,7 +17,15 @@ namespace Web.ManagerTask.Controllers
 
        
         public async Task<IActionResult> lista()
-            => View(await _context.Usuarios.ToListAsync());
+        {
+            var usuarios = _context.Usuarios.Include(x => x.Tarefas).ToList();
+
+            
+
+            return View(usuarios);
+        }
+
+          
 
         [HttpGet]
         public IActionResult Cadastrar()
@@ -39,34 +48,6 @@ namespace Web.ManagerTask.Controllers
 
         }
 
-        //[HttpGet]
-        //public IActionResult Cadastrar()
-        //{
-        //    return PartialView("_Cadastrar");
-
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Cadastrar(Usuario usuario)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ViewBag.Erro = "Erro ao cadastrar usuário";
-        //       return RedirectToAction("lista");
-        //    }
-        //    _context.Add(usuario);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction("lista");
-
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> Editar(int id)
-        //{
-        //    var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
-
-        //    return PartialView("_Editar", usuario);
-        //}
 
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
@@ -101,17 +82,36 @@ namespace Web.ManagerTask.Controllers
         }
 
 
-        [HttpPost, ActionName("Excluir")]
+        [HttpPost]
         public async Task<IActionResult> Excluir(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
+            try
             {
-                _context.Usuarios.Remove(usuario);
-            }
+                var usuario = await _context.Usuarios.Include(t => t.Tarefas).FirstOrDefaultAsync(x => x.Id == id);
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction("lista");
+                if (usuario.Tarefas.Count >= 1)
+                {
+                    ViewBag.Erro = "Este usuário possui tarefas associadas, por favor, exclua ou conclua as tarefas associadas";
+
+                    return View();
+                }
+
+                if (usuario != null)
+                {
+                    _context.Usuarios.Remove(usuario);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("lista");
+                }
+                ViewBag.Erro = "Erro ao Excluir usuario";
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Erro = "Erro ao Excluir usuario "+ ex.Message;
+                return View();
+            }
+           
         }
 
     }

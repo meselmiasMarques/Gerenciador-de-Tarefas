@@ -8,18 +8,20 @@
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Usuario" asp-action="Cadastrar">Cadastrar</a>
+        <a class="btn btn-primary btn-block btn-lg" role="button" asp-controller="Usuario" asp-action="Cadastrar"><i class="fas fa-plus-circle"></i> Cadastrar</a>
     </div>
     <br />
     <h1 class="display-4">Listagem de Usuários</h1>
 
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-sm">
+        <thead class="thead-dark">
             <tr>
-                <th>Id</th>
+                <th>Código</th>
                 <th>Nome</th>
                 <th>Email</th>
-                <th>Ações</th>
+                <th>Qtd. Tarefas</th>
+
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -30,10 +32,10 @@
 
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@item.Tarefas.Where(x => x.Status == 1).Count()</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                             <a type="button" class="btn btn-primary" asp-route-id="@item.Id" asp-action="Editar">Editar</a>
-
                             <a href="javascript:" usuario-id="@item.Id" type="button" class="btn btn-danger btn-excluir-usuario">Excluir</a>
                         </div>
                     </td>
@@ -76,7 +78,7 @@
                     <br />
 
                     <div class="d-grid gap-2">
-                        <a href="javascript:" id="ConfirmaExclusao" class="btn btn-danger">Remover</a>
+                        <a href="javascript:" id="ConfirmaExclusao" class="btn btn-danger btn-confirma-exclusao">Remover</a>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
                             Cancelar
                         </button>
