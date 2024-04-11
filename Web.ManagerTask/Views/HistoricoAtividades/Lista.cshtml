@@ -1,17 +1,26 @@
 ﻿ @model IEnumerable<MyTask.Models.HistoricoAtividade>
 
-<table>
-    <tr>
-    <thead>
-        <tr>Tarefa</tr>
-    </thead>
-    <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td> @Html.DisplayFor(modelItem => item.TipoAtividade)</td>
-            </tr>
-            }
-    </tbody>
-    </tr>
-</table>
+    <div class="row">
+        @foreach(var item in Model){
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    @item.Tarefa.Id  - @item.Tarefa.Titulo
+                </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            @* <input type="text" id="titulo" class="form-control" value="@item.Tarefa.Descricao" readonly> *@
+                            <textarea  type="text" id="titulo" class="form-control" rows="4" aria-readonly="true" readonly>@item.Tarefa.Descricao</textarea>
+                        </div>
+                    <div class="form-group">
+                        <input type="text" id="titulo" class="form-control" value="@item.Tarefa.UsuarioResponsavel.Nome" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="titulo" class="form-control" value="@item.Tarefa.DataCriacao" readonly>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        }
+    </div>
+
