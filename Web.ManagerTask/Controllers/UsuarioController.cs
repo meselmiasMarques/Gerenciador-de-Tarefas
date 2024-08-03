@@ -1,27 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using ManagerTask.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using MyTask.Models;
+using ManagerTask.Domain.Entities;
+
+using Usuario = ManagerTask.Domain.Entities.Usuario;
 
 namespace Web.ManagerTask.Controllers
 {
     public class UsuarioController : Controller
     {
-        private readonly DbContextImpacta _context;
+        private readonly UsuarioService _service;
 
-        public UsuarioController(DbContextImpacta context)
+        public UsuarioController(UsuarioService service)
         {
-            _context = context;
+            _service = service;
         }
 
        
         public async Task<IActionResult> lista()
         {
-            var usuarios = _context.Usuarios.Include(x => x.Tarefas).ToList();
-
+            //var usuarios = _context.Usuarios.Include(x => x.Tarefas).ToList();
+            var usuarios = await _service.GetAllAsync();
             
-
             return View(usuarios);
         }
 
@@ -35,15 +35,14 @@ namespace Web.ManagerTask.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(Usuario usuario)
+        public async Task<IActionResult> Cadastrar(global::ManagerTask.Domain.Entities.Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.Erro = "Erro ao cadastrar usuário";
                 return RedirectToAction("lista");
             }
-            _context.Add(usuario);
-            await _context.SaveChangesAsync();
+            await _service.AddAsync(usuario);
             return RedirectToAction("lista");
 
         }
@@ -52,7 +51,7 @@ namespace Web.ManagerTask.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+            var usuario = await _service.GetByIdAsync(id);
 
             return View(usuario);
         }
@@ -69,8 +68,7 @@ namespace Web.ManagerTask.Controllers
             {
                 try
                 {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
+                   await _service.UpdateAsync(usuario);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -85,33 +83,34 @@ namespace Web.ManagerTask.Controllers
         [HttpPost]
         public async Task<IActionResult> Excluir(int id)
         {
-            try
-            {
-                var usuario = await _context.Usuarios.Include(t => t.Tarefas).FirstOrDefaultAsync(x => x.Id == id);
+            //try
+            //{
+            //    var usuario = await _context.Usuarios.Include(t => t.Tarefas).FirstOrDefaultAsync(x => x.Id == id);
 
-                if (usuario.Tarefas.Count >= 1)
-                {
-                    ViewBag.Erro = "Este usuário possui tarefas associadas, por favor, exclua ou conclua as tarefas associadas";
+            //    if (usuario.Tarefas.Count >= 1)
+            //    {
+            //        ViewBag.Erro = "Este usuário possui tarefas associadas, por favor, exclua ou conclua as tarefas associadas";
 
-                    return View();
-                }
+            //        return View();
+            //    }
 
-                if (usuario != null)
-                {
-                    _context.Usuarios.Remove(usuario);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("lista");
-                }
-                ViewBag.Erro = "Erro ao Excluir usuario";
+            //    if (usuario != null)
+            //    {
+            //        _context.Usuarios.Remove(usuario);
+            //        await _context.SaveChangesAsync();
+            //        return RedirectToAction("lista");
+            //    }
+            //    ViewBag.Erro = "Erro ao Excluir usuario";
 
-                return View();
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Erro = "Erro ao Excluir usuario "+ ex.Message;
-                return View();
-            }
-           
+            //    return View();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ViewBag.Erro = "Erro ao Excluir usuario "+ ex.Message;
+            //    return View();
+            //}
+               return null;
+
         }
 
     }
