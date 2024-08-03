@@ -1,6 +1,6 @@
 # Gerenciamento de Tarefas
 
-Este é o projeto de Gerenciamento de Tarefas desenvolvido como parte do projeto de final de curso da faculdade. O projeto foi criado usando .NET, Entity Framework Core, MVC e SQL Server.
+Este é o projeto de Gerenciamento de Tarefas desenvolvido como parte do projeto de final de curso da faculdade. O projeto foi criado usando .NET, Entity Framework Core, MVC e SQL Server e DDD.
 
 ## Índice
 
