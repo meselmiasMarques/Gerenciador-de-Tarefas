@@ -33,7 +33,7 @@ namespace ManagerTask.Infrastructure.Repositories
 
 
         public async Task<IEnumerable<Usuario>> GetAllAsync()
-            => await _context.Usuarios.ToListAsync();
+            => await _context.Usuarios.Include(x => x.Tarefas).ToListAsync();
 
 
         public async Task RemoveAsync(Usuario entity)

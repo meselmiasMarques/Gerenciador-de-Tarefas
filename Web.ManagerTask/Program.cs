@@ -1,10 +1,9 @@
 using ManagerTask.Application.Services;
+using ManagerTask.Domain.Entities;
 using ManagerTask.Domain.Repositories;
 using ManagerTask.Infrastructure.Data;
 using ManagerTask.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using MyTask.Models;
-using Usuario = ManagerTask.Domain.Entities.Usuario;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +14,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddScoped<IRepository<Usuario>, UsuarioRepository>();
+builder.Services.AddScoped<IRepository<Tarefa>, TarefaRepository>();
+builder.Services.AddScoped<IRepository<Projeto>, ProjetoRepository>();
+builder.Services.AddScoped<IRepository<HistoricoAtividade>, HistoricoAtividadeRepository>();
+builder.Services.AddScoped<IRepository<Comentario>, ComentarioRepository>();
 
 
 builder.Services.AddScoped<UsuarioService>();
