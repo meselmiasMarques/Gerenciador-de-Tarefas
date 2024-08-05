@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sIscfDR7uqI=",
+  "dgSpecHash": "0MsWNAwA2Zs=",
   "success": true,
-  "projectFilePath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\ManagerTask.Infrastructure.csproj",
+  "projectFilePath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\ManagerTask.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mesel\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\mesel\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

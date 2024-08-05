@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ManagerTask.Infrastructure.Repositories
 {
-    public class ProjetoRepository : IRepository<Projeto>
+    public class ProjetoRepository : IProjetoRepository
     {
         private readonly AppDbContext _context;
         public ProjetoRepository(AppDbContext context)
@@ -41,5 +41,17 @@ namespace ManagerTask.Infrastructure.Repositories
             _context.Projetos.Remove(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Tarefa>> ListTaskByProject(int id)
+        {
+            var tarefas = await _context.Tarefas.Where(x => x.LActive == 1)
+                    .Where(p => p.ProjetoId == id)
+                    .ToListAsync();
+            return tarefas;
+        }
+
+        public async Task<IEnumerable<Projeto>> ListProjectTask()
+            => await _context.Projetos.Include(x => x.Tarefas).AsNoTracking().ToListAsync();
+
     }
 }

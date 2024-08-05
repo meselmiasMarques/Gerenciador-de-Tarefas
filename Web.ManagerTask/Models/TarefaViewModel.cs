@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyTask.Models;
 
-public class Tarefa
+public class TarefaViewModel
 {
     public int Id { get; set; }
 
@@ -15,7 +15,7 @@ public class Tarefa
 
     public int Status { get; set; } = 1; //SE 1 ENTÃO ESTÁ EM ABERTO SE 0 FECHADO
 
-    public int? UsuarioResponsavelId { get; set; }
+    public int UsuarioResponsavelId { get; set; }
 
     public int ProjetoId { get; set; }
 

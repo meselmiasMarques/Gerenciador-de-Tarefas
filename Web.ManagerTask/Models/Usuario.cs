@@ -26,7 +26,7 @@ public partial class Usuario
 
     public virtual ICollection<HistoricoAtividade> HistoricoAtividades { get; set; } = new List<HistoricoAtividade>();
 
-    public virtual ICollection<Projeto> Projetos { get; set; } = new List<Projeto>();
+    public virtual ICollection<ProjetoViewModel> Projetos { get; set; } = new List<ProjetoViewModel>();
 
-    public virtual ICollection<Tarefa> Tarefas { get; set; } = new List<Tarefa>();
+    public virtual ICollection<TarefaViewModel> Tarefas { get; set; } = new List<TarefaViewModel>();
 }

@@ -15,7 +15,7 @@ public partial class Comentario
 
     public DateTime? DataHoraComentario { get; set; }
 
-    public virtual Tarefa? Tarefa { get; set; }
+    public virtual TarefaViewModel? Tarefa { get; set; }
 
     public virtual Usuario? Usuario { get; set; }
 }

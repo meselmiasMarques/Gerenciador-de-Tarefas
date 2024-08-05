@@ -15,7 +15,7 @@ public partial class Tarefa
 
     public int Status { get; set; }
 
-    public int? UsuarioResponsavelId { get; set; }
+    public int UsuarioResponsavelId { get; set; }
 
     public int ProjetoId { get; set; }
 

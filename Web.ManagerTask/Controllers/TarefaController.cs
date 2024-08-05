@@ -1,301 +1,328 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Net;
-//using System.Net.Mail;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Rendering;
-//using Microsoft.EntityFrameworkCore;
-//using MyTask.Models;
-
-//namespace Web.ManagerTask.Controllers
-//{
-//    public class TarefaController : Controller
-//    {
-//        private readonly DbContextImpacta _context;
-//        private readonly IConfiguration _configuration;
+﻿using System.Net;
+using System.Net.Mail;
+using ManagerTask.Application.Services;
+using ManagerTask.Domain.Entities;
+using ManagerTask.Domain.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MyTask.Models;
+using HistoricoAtividade = ManagerTask.Domain.Entities.HistoricoAtividade;
+using Usuario = ManagerTask.Domain.Entities.Usuario;
 
 
-//        public TarefaController(DbContextImpacta context, IConfiguration configuration)
-//        {
-//            _context = context;
-//            _configuration = configuration;
-//        }
+namespace Web.ManagerTask.Controllers
+{
+    public class TarefaController : Controller
+    {
+        private readonly ITarefaService _tarefaService;
+        private readonly IProjetoService _projetoService;
+        private readonly UsuarioService _usuarioService;
 
-//        public async Task<IActionResult> Index()
-//        {
-
-//            try
-//            {
-//                ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Nome");
-//                ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
-
-//                var tarefas = _context.Tarefas
-//                        .Include(t => t.UsuarioResponsavel);
-
-//                return View(await tarefas.ToListAsync());
-
-//            }
-//            catch (Exception)
-//            {
-//                ViewBag.Erro = "Erro ao Carregar Dados!";
-
-//                return View();
-//            }
-//        }
+        private readonly IConfiguration _configuration;
 
 
-//        public async Task<IActionResult> Detalhar(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
+        public TarefaController(
+            ITarefaService tarefaService,
+            IProjetoService projetoService,
+            UsuarioService usuarioService,
+            IConfiguration configuration
+            )
+        {
+            _tarefaService = tarefaService;
+            _projetoService = projetoService;
+            _usuarioService = usuarioService;
+            _configuration = configuration;
+        }
 
-//            var tarefa = await _context.Tarefas
-//                .Include(t => t.UsuarioResponsavel)
-//                .FirstOrDefaultAsync(m => m.Id == id);
-//            if (tarefa == null)
-//            {
-//                return NotFound();
-//            }
+        public async Task<IActionResult> Index()
+        {
 
-//            return PartialView("_DetalharTarefa", tarefa);
-//        }
+            try
+            {
+                ViewData["ProjetoId"] = new SelectList(await _projetoService.GetAllAsync(), "Id", "Nome");
+                ViewData["UsuarioResponsavelId"] = new SelectList(await _usuarioService.GetAllAsync(), "Id", "Nome");
 
+                IEnumerable<TarefaViewModel> tarefas = (IEnumerable<TarefaViewModel>)await _tarefaService.ListTaskUser();
 
-//        public IActionResult Create(int projetoId)
-//        {
-//            ViewData["ProjetoId"] = projetoId;
-//            ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Nome");
+                return View(tarefas);
 
-//            return View();
-//        }
+            }
+            catch (Exception)
+            {
+                ViewBag.Erro = "Erro ao Carregar Dados!";
 
-
-//        [HttpPost]
-//        public async Task<IActionResult> Create(Tarefa tarefa)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                tarefa.lActive = 1;
-//                _context.Add(tarefa);
-//                await _context.SaveChangesAsync();
-
-//                Usuario? usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == tarefa.UsuarioResponsavelId);
-                
-//                //registra cada task criada no historico de atividades
-//                RegistrarHistorico(tarefa);
-//                EnviarEmail(usuario, tarefa.Id, tarefa.Titulo);
-
-//                return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId }, ViewBag.Sucesso);
-
-//            }
-//            ViewBag.Erro = "Erro ao cadastrar Tarefa!";
-
-//            ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
-//            return View(tarefa);
-
-//        }
+                return View();
+            }
+        }
 
 
-//        public async Task<IActionResult> Edit(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
-
-//            var tarefa = await _context.Tarefas.FindAsync(id);
-//            if (tarefa == null)
-//            {
-//                return NotFound();
-//            }
-//            ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
-//            return View(tarefa);
-//        }
-
-//        [HttpPost]
-//        public async Task<IActionResult> Edit(int id, Tarefa tarefa)
-//        {
-//            if (id != tarefa.Id)
-//            {
-//                return NotFound();
-//            }
-
-//            if (ModelState.IsValid)
-//            {
-//                try
-//                {
-//                    _context.Update(tarefa);
-//                    await _context.SaveChangesAsync();
-//                }
-//                catch (DbUpdateConcurrencyException)
-//                {
-//                    if (!TarefaExists(tarefa.Id))
-//                    {
-//                        return NotFound();
-//                    }
-//                    else
-//                    {
-//                        throw;
-//                    }
-//                }
-//                return RedirectToAction("Index");
-//            }
-//            ViewData["UsuarioResponsavelId"] = new SelectList(_context.Usuarios, "Id", "Id", tarefa.UsuarioResponsavelId);
-//            return View(tarefa);
-//        }
-
-//        public IActionResult FinalizarTarefa(int id)
-//        {
-
-//            var tarefa = _context.Tarefas.FirstOrDefault(x => x.Id == id);
-//            tarefa.Status = 0; //FLAG DE FINALIZAÇÃO
-
-//            _context.Tarefas.Update(tarefa);
-//            _context.SaveChanges();
+        public async Task<IActionResult> Detalhar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
 
-//            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
-//        }
+            IEnumerable<Tarefa> tarefas = (IEnumerable<Tarefa>)await _tarefaService.ListTaskUser();
 
-//        public IActionResult ReabrirTarefa(int id)
-//        {
+            var tarefa = tarefas.FirstOrDefault(x => x.Id == id);
 
-//            var tarefa = _context.Tarefas.FirstOrDefault(x => x.Id == id);
-//            tarefa.Status = 1; //FLAG DE ABERTURA
 
-//            _context.Tarefas.Update(tarefa);
-//            _context.SaveChanges();
+            var tarefaviewmodel = new TarefaViewModel
+            {
+                Status = tarefa.Status,
+                Descricao = tarefa.Descricao,
+                Titulo = tarefa.Titulo
+            };
 
 
 
-//            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
-//        }
+            if (tarefa == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_DetalharTarefa", tarefaviewmodel);
+        }
 
 
-//        [HttpPost]
-//        public async Task<IActionResult> Excluir(int id)
-//        {
-//            try
-//            {
-//                var tarefa = await _context.Tarefas.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<IActionResult> Create(int projetoId)
+        {
+            ViewData["ProjetoId"] = projetoId;
+            ViewData["UsuarioResponsavelId"] = new SelectList(await _usuarioService.GetAllAsync(), "Id", "Nome");
 
-              
-//                if (tarefa != null)
-//                {
-//                    tarefa.lActive = 0; //INATIVAÇÃO LÓGICA
-//                    _context.Tarefas.Update(tarefa);
-//                }
-
-//                await _context.SaveChangesAsync();
-//                return RedirectToAction(nameof(Index));
-//            }
-//            catch (Exception ex)
-//            {
-//                ViewBag.Erro = "Erro ao Excluir tarefa, " + ex.Message;
-//                return View();
-//            }
-//        }
-
-//        private bool TarefaExists(int id)
-//        {
-//            return _context.Tarefas.Any(e => e.Id == id);
-//        }
-
-//        public void EnviarEmail(Usuario usuario, int tarefaId, string tarefaTitulo)
-//        {
-//            var smtpServer = _configuration["EmailSettings:SmtpServer"];
-//            var port = int.Parse(_configuration["EmailSettings:Port"]);
-//            var userName = _configuration["EmailSettings:UserName"];
-//            var password = _configuration["EmailSettings:Password"];
-//            var enableSsl = bool.Parse(_configuration["EmailSettings:EnableSsl"]);
-
-//            var destinatario = usuario.Email;
-//            var assunto = "Manager Task -  Nova Tarefa";
-//            var corpo = @"
-//                                <!DOCTYPE html>
-//                                <html lang=""pt"">
-//                                <head>
-//                                    <meta charset=""UTF-8"">
-//                                    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-//                                    <title>Email Template</title>
-//                                    <style>
-//                                       body {
-//                                              font-family: Arial, sans-serif;
-//                                              padding: 10px;
-//                                            }
-//                                            .container {
-//                                              max-width: 400px;
-//                                              background-color: #d3dfc3;
-//                                              padding: 20px;
-//                                              border-radius: 10px;
-//                                              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-//                                            }
-//                                            .titulo {
-//                                              font-size: 18px;
-//                                              font-weight: bold;
-//                                            }
-//                                            .conteudo {
-//                                              font-size: 16px;
-//                                              border-bottom: absoluteove;
-//                                              border: auto-flow;
-//                                            }
-//                                            .corpo {
-//                                              font-size: 18px;
-//                                              margin-bottom: 20px;
-//                                            }
+            return View();
+        }
 
 
-//                                    </style>
-//                                </head>
-//                                <body>
-//                                    <div class=""container"">" +
-//                                @"<p class=""corpo"">Olá, " + usuario.Nome + "</p>" +
-//                                   @"<p class=""conteudo"">A tarefa <span class=""titulo"">" + tarefaId + " - " + tarefaTitulo + "</span> foi atribuída a você!</p></div></body></html>";
+        [HttpPost]
+        public async Task<IActionResult> Create(TarefaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var tarefa = new Tarefa
+                {
+                    Titulo = model.Titulo,
+                    Status = model.Status,
+                    Descricao = model.Descricao,
+                    ProjetoId = model.ProjetoId,
+                    UsuarioResponsavelId = model.UsuarioResponsavelId
+                };
+
+                await _tarefaService.AddAsync(tarefa);
+
+                Usuario? usuario = await _usuarioService.GetByIdAsync(tarefa.UsuarioResponsavelId);
 
 
-//            using (var mensagem = new MailMessage(userName, destinatario))
-//            using (var clienteSmtp = new SmtpClient(smtpServer, port))
-//            {
-//                clienteSmtp.Credentials = new NetworkCredential(userName, password);
-//                clienteSmtp.EnableSsl = enableSsl;
+                //registra cada task criada no historico de atividades
+                RegistrarHistorico(tarefa);
+                EnviarEmail(usuario, tarefa.Id, tarefa.Titulo);
 
-//                mensagem.Subject = assunto;
-//                mensagem.Body = corpo;
-//                mensagem.IsBodyHtml = true; // Define o corpo como HTML
+                return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId }, ViewBag.Sucesso);
 
+            }
+            ViewBag.Erro = "Erro ao cadastrar Tarefa!";
 
-//                try
-//                {
-//                    clienteSmtp.Send(mensagem);
-//                    ViewBag.Mensagem = "E-mail enviado com sucesso!";
-//                }
-//                catch (SmtpException ex)
-//                {
-//                    ViewBag.Mensagem = "Erro ao enviar o e-mail: " + ex.Message;
-//                }
-//            }
+            ViewData["UsuarioResponsavelId"] = new SelectList(await _usuarioService.GetAllAsync(), "Id", "Nome");
+            return View();
 
-//        }
+        }
 
 
-//        public void RegistrarHistorico(Tarefa tarefa)
-//        {
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-//            HistoricoAtividade historio = new();
-//            historio.TarefaId = tarefa.Id;
-//            historio.UsuarioId = tarefa.UsuarioResponsavelId;
-//            historio.TipoAtividade = tarefa.Titulo;
-//            historio.DataHoraAtividade = tarefa.DataCriacao;
+            var model = await _tarefaService.GetByIdAsync(id);
 
-//            var historico = _context.HistoricoAtividades.Add(historio);
-//            _context.SaveChanges();
-//        }
-//    }
-//}
+            var tarefa = new TarefaViewModel()
+            {
+                Titulo = model.Titulo,
+                Descricao = model.Descricao,
+                Status = model.Status,
+                ProjetoId = model.ProjetoId,
+                UsuarioResponsavelId = model.UsuarioResponsavelId,
+                lActive = model.LActive
+            };
+
+            if (tarefa == null)
+            {
+                return NotFound();
+            }
+            ViewData["UsuarioResponsavelId"] = new SelectList(await _usuarioService.GetAllAsync(), "Id", "Nome");
+            return View(tarefa);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, TarefaViewModel model)
+        {
 
 
-  
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var tarefa = new Tarefa()
+                    {
+                        Titulo = model.Titulo,
+                        Descricao = model.Descricao,
+                        Status = model.Status,
+                        UsuarioResponsavelId = model.UsuarioResponsavelId,
+                        LActive = model.lActive,
+                        ProjetoId = model.ProjetoId
+                    };
+
+                    await _tarefaService.UpdateAsync(tarefa);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                }
+                return RedirectToAction("Index");
+            }
+            ViewData["UsuarioResponsavelId"] = new SelectList(await _usuarioService.GetAllAsync(), "Id", "Nome");
+            ;
+            return View();
+        }
+
+        public async Task<IActionResult> FinalizarTarefa(int id)
+        {
+
+            var tarefa = await _tarefaService.FinishTask(id);
+
+            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
+        }
+
+        public async Task<IActionResult> ReabrirTarefa(int id)
+        {
+
+            var tarefa = await _tarefaService.ReOpenTask(id);
+
+
+            return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Excluir(int id)
+        {
+            try
+            {
+                var tarefa = await _tarefaService.GetByIdAsync(id);
+
+
+                if (tarefa != null)
+                {
+                    _tarefaService.DeleteAsync(tarefa);
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Erro = "Erro ao Excluir tarefa, " + ex.Message;
+                return RedirectToAction(nameof(Index));
+
+            }
+        }
+
+
+
+        public void EnviarEmail(Usuario usuario, int tarefaId, string tarefaTitulo)
+        {
+            var smtpServer = _configuration["EmailSettings:SmtpServer"];
+            var port = int.Parse(_configuration["EmailSettings:Port"]);
+            var userName = _configuration["EmailSettings:UserName"];
+            var password = _configuration["EmailSettings:Password"];
+            var enableSsl = bool.Parse(_configuration["EmailSettings:EnableSsl"]);
+
+            var destinatario = usuario.Email;
+            var assunto = "Manager Task -  Nova Tarefa";
+            var corpo = @"
+                                <!DOCTYPE html>
+                                <html lang=""pt"">
+                                <head>
+                                    <meta charset=""UTF-8"">
+                                    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+                                    <title>Email Template</title>
+                                    <style>
+                                       body {
+                                              font-family: Arial, sans-serif;
+                                              padding: 10px;
+                                            }
+                                            .container {
+                                              max-width: 400px;
+                                              background-color: #d3dfc3;
+                                              padding: 20px;
+                                              border-radius: 10px;
+                                              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                            }
+                                            .titulo {
+                                              font-size: 18px;
+                                              font-weight: bold;
+                                            }
+                                            .conteudo {
+                                              font-size: 16px;
+                                              border-bottom: absoluteove;
+                                              border: auto-flow;
+                                            }
+                                            .corpo {
+                                              font-size: 18px;
+                                              margin-bottom: 20px;
+                                            }
+
+
+                                    </style>
+                                </head>
+                                <body>
+                                    <div class=""container"">" +
+                                @"<p class=""corpo"">Olá, " + usuario.Nome + "</p>" +
+                                   @"<p class=""conteudo"">A tarefa <span class=""titulo"">" + tarefaId + " - " + tarefaTitulo + "</span> foi atribuída a você!</p></div></body></html>";
+
+
+            using (var mensagem = new MailMessage(userName, destinatario))
+            using (var clienteSmtp = new SmtpClient(smtpServer, port))
+            {
+                clienteSmtp.Credentials = new NetworkCredential(userName, password);
+                clienteSmtp.EnableSsl = enableSsl;
+
+                mensagem.Subject = assunto;
+                mensagem.Body = corpo;
+                mensagem.IsBodyHtml = true; // Define o corpo como HTML
+
+
+                try
+                {
+                    clienteSmtp.Send(mensagem);
+                    ViewBag.Mensagem = "E-mail enviado com sucesso!";
+                }
+                catch (SmtpException ex)
+                {
+                    ViewBag.Mensagem = "Erro ao enviar o e-mail: " + ex.Message;
+                }
+            }
+
+        }
+
+
+        public void RegistrarHistorico(Tarefa tarefa)
+        {
+
+            //HistoricoAtividade historio = new();
+            //historio.TarefaId = tarefa.Id;
+            //historio.UsuarioId = tarefa.UsuarioResponsavelId;
+            //historio.TipoAtividade = tarefa.Titulo;
+            //historio.DataHoraAtividade = tarefa.DataCriacao;
+
+            //var historico = _context.HistoricoAtividades.Add(historio);
+            //_context.SaveChanges();
+        }
+    }
+}
+
+

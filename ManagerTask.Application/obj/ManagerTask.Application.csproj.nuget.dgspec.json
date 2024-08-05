@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj": {}
+    "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj": {}
   },
   "projects": {
-    "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj": {
+    "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj",
+        "projectUniqueName": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj",
         "projectName": "ManagerTask.Application",
-        "projectPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj",
+        "projectPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj",
         "packagesPath": "C:\\Users\\mesel\\.nuget\\packages\\",
-        "outputPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\obj\\",
+        "outputPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mesel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,8 +29,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj": {
-                "projectPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj"
+              "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj": {
+                "projectPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj"
               }
             }
           }
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj": {
+    "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj",
+        "projectUniqueName": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj",
         "projectName": "ManagerTask.Domain",
-        "projectPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj",
+        "projectPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj",
         "packagesPath": "C:\\Users\\mesel\\.nuget\\packages\\",
-        "outputPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\obj\\",
+        "outputPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mesel\\AppData\\Roaming\\NuGet\\NuGet.Config",

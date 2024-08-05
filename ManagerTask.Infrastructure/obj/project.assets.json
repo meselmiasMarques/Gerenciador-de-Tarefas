@@ -4108,11 +4108,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\ManagerTask.Infrastructure.csproj",
+      "projectUniqueName": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\ManagerTask.Infrastructure.csproj",
       "projectName": "ManagerTask.Infrastructure",
-      "projectPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\ManagerTask.Infrastructure.csproj",
+      "projectPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\ManagerTask.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\mesel\\.nuget\\packages\\",
-      "outputPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\obj\\",
+      "outputPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mesel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4130,11 +4130,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj": {
-              "projectPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj"
+            "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj": {
+              "projectPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Application\\ManagerTask.Application.csproj"
             },
-            "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj": {
-              "projectPath": "C:\\DEV\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj"
+            "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj": {
+              "projectPath": "C:\\dev\\Gerenciador-de-Tarefas\\ManagerTask.Domain\\ManagerTask.Domain.csproj"
             }
           }
         }

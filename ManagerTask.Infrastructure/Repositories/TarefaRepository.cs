@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ManagerTask.Infrastructure.Repositories
 {
-    public class TarefaRepository : IRepository<Tarefa>
+    public class TarefaRepository : ITarefaRepository
+
     {
         private readonly AppDbContext _context;
+
         public TarefaRepository(AppDbContext context)
             => _context = context;
 
@@ -40,6 +42,21 @@ namespace ManagerTask.Infrastructure.Repositories
         {
             _context.Tarefas.Remove(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<List<Tarefa>> ListTaskUser()
+        {
+            var tarefas = _context
+                .Tarefas
+                .AsNoTracking()
+                .Include(x => x.UsuarioResponsavel)
+                .ToListAsync();
+            return tarefas;
+        }
+
+        public Task<List<Tarefa>> ListTaskByProject()
+        {
+            throw new NotImplementedException();
         }
     }
 }

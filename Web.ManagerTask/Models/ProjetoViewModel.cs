@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyTask.Models;
 
-public partial class Projeto
+public partial class ProjetoViewModel
 {
     [Key]
     public int Id { get; set; }
@@ -22,7 +22,7 @@ public partial class Projeto
 
     public int? UsuarioCriadorId { get; set; }
 
-    public virtual ICollection<Tarefa> Tarefas { get; set; } = new List<Tarefa>();
+    public virtual ICollection<TarefaViewModel> Tarefas { get; set; } = new List<TarefaViewModel>();
 
     public virtual Usuario? UsuarioCriador { get; set; }
 }

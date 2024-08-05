@@ -83,33 +83,25 @@ namespace Web.ManagerTask.Controllers
         [HttpPost]
         public async Task<IActionResult> Excluir(int id)
         {
-            //try
-            //{
-            //    var usuario = await _context.Usuarios.Include(t => t.Tarefas).FirstOrDefaultAsync(x => x.Id == id);
+            try
+            {
 
-            //    if (usuario.Tarefas.Count >= 1)
-            //    {
-            //        ViewBag.Erro = "Este usuário possui tarefas associadas, por favor, exclua ou conclua as tarefas associadas";
+                //if (usuario.Tarefas.Count >= 1)
+                //{
+                //    ViewBag.Erro = "Este usuário possui tarefas associadas, por favor, exclua ou conclua as tarefas associadas";
 
-            //        return View();
-            //    }
+                //    return View();
+                //}
 
-            //    if (usuario != null)
-            //    {
-            //        _context.Usuarios.Remove(usuario);
-            //        await _context.SaveChangesAsync();
-            //        return RedirectToAction("lista");
-            //    }
-            //    ViewBag.Erro = "Erro ao Excluir usuario";
-
-            //    return View();
-            //}
-            //catch (Exception ex)
-            //{
-            //    ViewBag.Erro = "Erro ao Excluir usuario "+ ex.Message;
-            //    return View();
-            //}
-               return null;
+                await _service.DeleteAsync(id);
+                return RedirectToAction("lista");
+                
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Erro = "Erro ao Excluir usuario " + ex.Message;
+                return View();
+            }
 
         }
 
