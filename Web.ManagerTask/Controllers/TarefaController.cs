@@ -59,6 +59,8 @@ namespace Web.ManagerTask.Controllers
 
         public async Task<IActionResult> Detalhar(int? id)
         {
+
+
             if (id == null)
             {
                 return NotFound();
@@ -70,21 +72,13 @@ namespace Web.ManagerTask.Controllers
             var tarefa = tarefas.FirstOrDefault(x => x.Id == id);
 
 
-            var tarefaviewmodel = new TarefaViewModel
-            {
-                Status = tarefa.Status,
-                Descricao = tarefa.Descricao,
-                Titulo = tarefa.Titulo
-            };
-
-
 
             if (tarefa == null)
             {
                 return NotFound();
             }
 
-            return PartialView("_DetalharTarefa", tarefaviewmodel);
+            return PartialView("_DetalharTarefa", tarefa);
         }
 
 
@@ -105,10 +99,9 @@ namespace Web.ManagerTask.Controllers
                 var tarefa = new Tarefa
                 {
                     Titulo = model.Titulo,
-                    Status = model.Status,
                     Descricao = model.Descricao,
                     ProjetoId = model.ProjetoId,
-                    UsuarioResponsavelId = model.UsuarioResponsavelId
+                    UsuarioResponsavelId = model.UsuarioResponsavelId,
                 };
 
                 await _tarefaService.AddAsync(tarefa);
@@ -186,7 +179,7 @@ namespace Web.ManagerTask.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["UsuarioResponsavelId"] = new SelectList(await _usuarioService.GetAllAsync(), "Id", "Nome");
-            ;
+            
             return View();
         }
 
@@ -218,15 +211,15 @@ namespace Web.ManagerTask.Controllers
 
                 if (tarefa != null)
                 {
-                    _tarefaService.DeleteAsync(tarefa);
+                   await _tarefaService.DeleteAsync(tarefa);
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("listarTarefasPorProjeto", "Projeto", new { id = tarefa.ProjetoId });
             }
             catch (Exception ex)
             {
                 ViewBag.Erro = "Erro ao Excluir tarefa, " + ex.Message;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Lista", "Projeto" );
 
             }
         }

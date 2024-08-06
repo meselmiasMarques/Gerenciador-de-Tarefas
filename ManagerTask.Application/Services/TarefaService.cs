@@ -20,7 +20,8 @@ namespace ManagerTask.Application.Services
                 if (entity != null)
                 {
                     entity.DataCriacao = DateTime.Now;
-                    entity.Status = 0;
+                    entity.Status = 1;
+                    entity.LActive = 1;
                     await _repository.AddAsync(entity);
                 }
             }

@@ -75,6 +75,7 @@ namespace Web.ManagerTask.Controllers
         {
             var projeto = new Projeto()
             {
+                Id = model.Id,
                 NomeProjeto = model.NomeProjeto,
                 Status = model.Status,
                 Tarefas = new List<Tarefa>(),

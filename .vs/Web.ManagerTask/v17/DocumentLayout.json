@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\DEV\\Gerenciador-de-Tarefas\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{80BF4EF9-6B45-4B01-85E6-C297FAFA16BA}|Web.ManagerTask\\Web.ManagerTask.csproj|c:\\dev\\gerenciador-de-tarefas\\web.managertask\\controllers\\tarefacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80BF4EF9-6B45-4B01-85E6-C297FAFA16BA}|Web.ManagerTask\\Web.ManagerTask.csproj|solutionrelative:web.managertask\\controllers\\tarefacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TarefaController.cs",
+              "DocumentMoniker": "C:\\DEV\\Gerenciador-de-Tarefas\\Web.ManagerTask\\Controllers\\TarefaController.cs",
+              "RelativeDocumentMoniker": "Web.ManagerTask\\Controllers\\TarefaController.cs",
+              "ToolTip": "C:\\DEV\\Gerenciador-de-Tarefas\\Web.ManagerTask\\Controllers\\TarefaController.cs",
+              "RelativeToolTip": "Web.ManagerTask\\Controllers\\TarefaController.cs",
+              "ViewState": "AQIAAMMAAAAAAAAAAAAgwM0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-06T00:18:27.862Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
