@@ -20,11 +20,17 @@ O sistema de Gerenciamento de Tarefas é uma aplicação web que permite aos usu
 
 ## Funcionalidades
 
-- **Cadastro de Tarefas**: Adicione novas tarefas com detalhes como título, descrição, data de início e fim.
+Tela Inicial:
+
+![image](https://github.com/user-attachments/assets/cd1d941e-a761-406c-adf8-a343567e2665)
+
+- **Cadastro de projetos**: Adicione projetos com detalhes como título, descrição, data de início e fim e liste tarefas do projeto.
+- 
+- **Cadastro de Tarefas**: Adicione novas tarefas com detalhes como título, descrição, data de início e fim podemos criar para cada projeto.
 - **Listagem de Tarefas**: Veja a lista de todas as tarefas cadastradas.
 - **Edição de Tarefas**: Edite os detalhes de qualquer tarefa existente.
 - **Exclusão de Tarefas**: Remova tarefas que não são mais necessárias.
-- **Filtragem e Pesquisa**: Filtre e pesquise tarefas com base em critérios específicos.
+- Cadastro de Usuarios: Adicione Usuários para atribuir as tarefas.
 
 ## Tecnologias Utilizadas
 
@@ -32,6 +38,7 @@ O sistema de Gerenciamento de Tarefas é uma aplicação web que permite aos usu
 - **Entity Framework Core**: ORM (Object Relational Mapper) para trabalhar com banco de dados de forma mais intuitiva.
 - **MVC (Model-View-Controller)**: Padrão de arquitetura para separação de preocupações.
 - **SQL Server**: Sistema de gerenciamento de banco de dados relacional.
+- **DDD** : Implementado DDD para Organização do código
 
 ## Pré-requisitos
 
